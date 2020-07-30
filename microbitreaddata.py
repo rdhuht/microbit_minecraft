@@ -1,6 +1,6 @@
 from microbit import *
 
-REFRESH = 500
+REFRESH = 50
 
 
 def get_data():

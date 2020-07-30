@@ -19,7 +19,6 @@ class Bomb:
         # if backgroud == True, return the thread, otherwise wait for it to finish
         if background == False:
             dropThread.join()
-
         return dropThread
 
     def _drop(self, x, y, z, speed):

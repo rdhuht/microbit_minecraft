@@ -1,8 +1,7 @@
 import serial
-from time import sleep
 
 from starwarscraft import *
-from bomb import Bomb
+# from bomb import Bomb
 from mcpi.minecraft import Minecraft
 
 PORT = "COM10"  # 这里的数字10需要检查一下，去设备管理器里，看看是数字多少，替换即可
@@ -45,12 +44,13 @@ try:
     craftPos.y -= 3
     craft = XWingFighter(craftPos)
     print("战斗机生成")
-    bomb = Bomb()
+    # bomb = Bomb()
 
     while True:
         x, y, z, a, b = read_microbit_data()
+        print(x, y, z, a, b)
         if a:
-            # print("A")
+            print("A")
             if craft.flying:
                 craft.stop()
                 print('stop')
@@ -58,8 +58,10 @@ try:
                 craft.fly(0.15)
                 print('fly')
         if b:
+            print('b')
             bpos = craft.craftShape.position
-            bomb.drop(bpos.x, bpos.y - 2, bpos.z, 0.1)
+            # bomb.drop(bpos.x, bpos.y - 1, bpos.z, 0.1)
+            XWingFighter.dropTNT()
             print('bomb!')
 
         # 调整偏航角度（左右转弯）
@@ -80,17 +82,17 @@ try:
 
         # 
         if y > 750:
-            print('-->')
+            print('^^')
             craft.pull(10)
         if y > 500:
-            print('->')
+            print('^')
             craft.pull(5)
         if y < -750:
-            print('<--')
+            print('dd')
             craft.pull(-10)
         if y < -500:
             craft.pull(-5)
-            print('<-')
+            print('d')
         if -500 < y < 500:
             craft.pull(0)
 
