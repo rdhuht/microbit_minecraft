@@ -27,7 +27,11 @@ class StarwarsCraft:
 
         self.flying = False
         self.turnYawAngle = 0
-        self.pitchAngle = 0
+        self.turnPitchAngle = 0
+        self.turnRowAngle = 0
+
+    def dropTNT(self):
+        self.craftShape.setBlock(self.craftShape.position.x, self.position.y, self.position.z, block.TNT)
 
     # fly the craft to a position, speed is the time to wait between moving
     def flyTo(self, x, y, z, speed, background=False):
@@ -64,8 +68,8 @@ class StarwarsCraft:
 
     def _fly(self, speed):
         while self.flying:
-            if self.turnYawAngle != 0:
-                self.rotateBy(self.turnYawAngle, 0, 0)
+            if self.turnYawAngle != 0 or self.turnPitchAngle != 0:
+                self.rotateBy(self.turnYawAngle, self.turnPitchAngle, self.turnRowAngle)
 
             x, y, z = findPointOnSphere(self.position.x, self.position.y, self.position.z,
                                         1, self.craftShape.yaw - 90, self.craftShape.pitch)
@@ -94,7 +98,7 @@ class StarwarsCraft:
 
     # 拉升，下降
     def pull(self, angle):
-        self.pitchAngle = angle
+        self.turnPitchAngle = angle
 
     @property
     def position(self):
