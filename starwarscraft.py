@@ -6,7 +6,6 @@ from mcpi import block
 from mcpi import minecraftstuff as mcstuff
 
 
-# finds point on sphere (based on polar co-ordinates) 
 # 在球面上找一个点
 def findPointOnSphere(cx, cy, cz, radius, phi, theta):
     # phi - angle around the pole 0<= phi <= 360
