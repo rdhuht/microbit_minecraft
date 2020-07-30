@@ -1,7 +1,7 @@
 import serial
-
 from starwarscraft import *
 from mcpi.minecraft import Minecraft
+import bomb
 
 PORT = "COM10"  # 这里的数字10需要检查一下，去设备管理器里，看看是数字多少，替换即可
 BAUD = 115200
@@ -16,15 +16,21 @@ s.readline()
 
 
 def read_microbit_data():
-    # read a line from the microbit,
-    data = s.readline().decode()
+    # data = s.readline().decode().rstrip().split(' ')
+    # x, y, z = int(data[0]), int(data[1]), int(data[2])
+    # print(s.readline())
+    data = str(s.readline()).rstrip()[2:-9].split(' ')
+    # print(type(data))
     # print(data)
-    # split the microbit data into x, y, z, a, b
-    data_s = data.rstrip().split(' ')
-    x, y, z = int(data_s[0]), int(data_s[1]), int(data_s[2])
-    a = True if data_s[3] == "True" else False
-    b = True if data_s[4] == "True" else False
-    return x, y, z, a, b
+    # print(len(data))
+    if len(data) > 1:
+        x, y, z = int(data[0]), int(data[1]), int(data[2])
+        a, b = data[3], data[4]
+        a = True if data[3] == "true" else False
+        b = True if data[4] == "true" else False
+        return x, y, z, a, b
+    else:
+        return 0, 0, 0, False, False
 
 
 mc = Minecraft.create()
@@ -40,10 +46,11 @@ try:
     craftPos.y -= 3
     craft = XWingFighter(craftPos)
     print("战斗机生成")
+    bomb = bomb.Bomb()
 
     while True:
         x, y, z, a, b = read_microbit_data()
-        print(x, y, z, a, b)
+        # print(x, y, z, a, b, type(x), type(a))
         if a:
             mc.postToChat("A")
             if craft.flying:
@@ -55,8 +62,7 @@ try:
         if b:
             mc.postToChat('b')
             bpos = craft.craftShape.position
-            # bomb.drop(bpos.x, bpos.y - 1, bpos.z, 0.1)
-            XWingFighter.dropTNT()
+            bomb.drop(bpos.x, bpos.y - 1, bpos.z, 0.1)
             mc.postToChat('bomb!')
 
         # 调整偏航角度（左右转弯）
@@ -75,7 +81,7 @@ try:
         if -500 < x < 500:
             craft.turn(0)
 
-        #
+        # 拉升/俯冲
         if y > 750:
             print('^^')
             craft.pull(10)
