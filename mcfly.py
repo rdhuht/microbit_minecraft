@@ -2,8 +2,9 @@ import serial
 from starwarscraft import *
 from mcpi.minecraft import Minecraft
 import bomb
+import time
 
-PORT = "COM10"  # 这里的数字10需要检查一下，去设备管理器里，看看是数字多少，替换即可
+PORT = "COM13"  # 这里的数字10需要检查一下，去设备管理器里，看看是数字多少，替换即可
 BAUD = 115200
 
 s = serial.Serial(PORT)
@@ -28,6 +29,7 @@ def read_microbit_data():
         a, b = data[3], data[4]
         a = True if data[3] == "true" else False
         b = True if data[4] == "true" else False
+        print(x, y, z, a, b)
         return x, y, z, a, b
     else:
         return 0, 0, 0, False, False
@@ -49,8 +51,8 @@ try:
     bomb = bomb.Bomb()
 
     while True:
+        time.sleep(0.2)
         x, y, z, a, b = read_microbit_data()
-        # print(x, y, z, a, b, type(x), type(a))
         if a:
             mc.postToChat("A")
             if craft.flying:
