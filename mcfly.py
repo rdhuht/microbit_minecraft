@@ -4,7 +4,7 @@ from mcpi.minecraft import Minecraft
 import bomb
 import time
 
-PORT = "COM13"  # 这里的数字10需要检查一下，去设备管理器里，看看是数字多少，替换即可
+PORT = "COM9"  # 这里的数字10需要检查一下，去设备管理器里，看看是数字多少，替换即可
 BAUD = 115200
 
 s = serial.Serial(PORT)
