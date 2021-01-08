@@ -1,6 +1,6 @@
 import serial
 
-PORT = "COM13"
+PORT = "COM9"
 BAUD = 115200
 
 s = serial.Serial(PORT)
@@ -11,16 +11,16 @@ s.stopbits = serial.STOPBITS_ONE
 
 try:
     while True:
-        # print(s.readline())
+        print(s.readline())
         data = str(s.readline()).rstrip()[2:-9].split(' ')
         # data = str(s.readline())
         # print(type(data))
         # print(data)
         # print(len(data))
-        # if len(data) > 1:
-        #     x, y, z = data[0], data[1], data[2]
-        #     a, b = data[3], data[4]
-            # print(x, y, z, a, b)
+        if len(data) > 1:
+            x, y, z = data[0], data[1], data[2]
+            a, b = data[3], data[4]
+            print(x, y, z, a, b)
 
 
 finally:
