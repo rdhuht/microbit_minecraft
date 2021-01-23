@@ -1,6 +1,6 @@
-# use somebody else's code
 from mcpi.minecraft import Minecraft, ChatEvent
 from mcpi.minecraftstuff import MinecraftDrawing, MinecraftTurtle
+from mcpi import block, entity
 
 name = "JeremyTsui"
 # connect to minecraft
@@ -32,5 +32,7 @@ while True:
         x, y, z = str(pe.pos.x), str(pe.pos.y), str(pe.pos.z)
         if len(pe.targetName) == 0:
             print("{} hit a block({}, {}, {})".format(pe.originName, x, y, z))
+            mc.spawnEntity(int(x), int(y), int(z), entity.GIANT)
         else:
             print("{} hit {}({}, {}, {})".format(pe.originName, pe.targetName, x, y, z))
+            mc.spawnEntity(int(x), int(y), int(z), entity.PRIMED_TNT)
