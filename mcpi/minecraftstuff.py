@@ -1322,7 +1322,7 @@ class MinecraftTurtle:
         :param y: turtle's y coordinate
         :param z: turtle's z coordinate
         """
-        super()._moveTurtle(x, y, z)
+        self.goto(x, y, z)
 
     def offset(self):
         """
