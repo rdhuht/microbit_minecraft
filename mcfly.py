@@ -20,15 +20,15 @@ def read_microbit_data():
     # data = s.readline().decode().rstrip().split(' ')
     # x, y, z = int(data[0]), int(data[1]), int(data[2])
     # print(s.readline())
-    data = str(s.readline()).rstrip()[2:-9].split(' ')
+    data = str(s.readline()).rstrip()[2:-5].split(' ')
     # print(type(data))
     # print(data)
     # print(len(data))
     if len(data) > 1:
         x, y, z = int(data[0]), int(data[1]), int(data[2])
         a, b = data[3], data[4]
-        a = True if data[3] == "true" else False
-        b = True if data[4] == "true" else False
+        a = True if data[3] == "True" else False
+        b = True if data[4] == "True" else False
         print(x, y, z, a, b)
         return x, y, z, a, b
     else:
@@ -38,7 +38,7 @@ def read_microbit_data():
 mc = Minecraft.create()
 print("连接成功")
 # name = input("Your name:")
-name = "JeremyTsui"
+name = "Jerry"
 
 try:
     pid = mc.getPlayerEntityId(name)
