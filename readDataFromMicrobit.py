@@ -12,7 +12,7 @@ s.stopbits = serial.STOPBITS_ONE
 try:
     while True:
         print(s.readline())
-        data = str(s.readline()).rstrip()[2:-9].split(' ')
+        data = str(s.readline()).rstrip()[2:-5].split(' ')
         # data = str(s.readline())
         # print(type(data))
         # print(data)
